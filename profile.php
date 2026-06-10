@@ -30,24 +30,47 @@ $total_received_likes = $likes_stmt->fetchColumn();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Το Προφίλ μου - <?php echo htmlspecialchars($username); ?></title>
     <style>
-        :root { --primary: #27ae60; --dark: #1a1a1a; --danger: #e74c3c; --light: #f8fafc; }
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        
-        .profile-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center; margin-bottom: 30px; }
-        .stats-box { display: flex; justify-content: center; gap: 40px; margin-top: 20px; }
-        .stat-item { font-size: 18px; color: #64748b; }
-        .stat-item b { color: var(--dark); font-size: 24px; display: block; }
+    :root { --primary: #27ae60; --dark: #1a1a1a; --danger: #e74c3c; --light: #f8fafc; }
+    body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    
+    .profile-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center; margin-bottom: 30px; }
+    .stats-box { display: flex; justify-content: center; gap: 40px; margin-top: 20px; }
+    .stat-item { font-size: 18px; color: #64748b; }
+    .stat-item b { color: var(--dark); font-size: 24px; display: block; }
 
-        .recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .recipe-item { background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 15px; transition: 0.3s; }
-        .recipe-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .recipe-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 12px; }
-        
-        .btn-action { text-decoration: none; font-weight: bold; font-size: 14px; padding: 6px 12px; border-radius: 8px; }
-        .btn-view { color: #2980b9; background: #e3f2fd; }
-        .btn-del { color: var(--danger); background: #fff0f0; margin-left: 5px; }
-    </style>
+    /* Εδώ είναι οι αλλαγές για το grid */
+    .recipe-grid { 
+        display: grid; 
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+        gap: 20px; 
+    }
+    
+    .recipe-item { 
+        background: white; 
+        padding: 20px; 
+        border-radius: 16px; 
+        border: 1px solid #e2e8f0; 
+        display: flex; 
+        flex-direction: column; /* Τα βάζει το ένα κάτω από το άλλο μέσα στο πλαίσιο */
+        align-items: center; 
+        text-align: center;
+        gap: 10px; 
+        transition: 0.3s; 
+    }
+    .recipe-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    
+    .recipe-item img { 
+        width: 100%; /* Η εικόνα πιάνει όλο το πλάτος του πλαισίου */
+        height: 180px; 
+        object-fit: cover; 
+        border-radius: 12px; 
+    }
+    
+    .btn-action { text-decoration: none; font-weight: bold; font-size: 14px; padding: 6px 12px; border-radius: 8px; display: inline-block; margin-top: 10px;}
+    .btn-view { color: #2980b9; background: #e3f2fd; }
+    .btn-del { color: var(--danger); background: #fff0f0; margin-left: 5px; }
+</style>
 </head>
 <body>
 
