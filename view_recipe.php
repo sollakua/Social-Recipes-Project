@@ -152,7 +152,7 @@ $comments = $comment_stmt->fetchAll();
 
             <div class="like-pill">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="like_handler.php?recipe_id=<?php echo $recipe_id; ?>" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                    <a href="like_handler.php?recipe_id=<?php echo $recipe_id; ?>" class="like-btn" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
                         <span style="font-size: 1.5rem; transition: 0.2s;"><?php echo $user_liked ? '❤️' : '🤍'; ?></span> 
                         <b style="color: #1e293b; font-size: 16px;"><?php echo $total_likes; ?> likes</b>
                     </a>
@@ -205,5 +205,35 @@ $comments = $comment_stmt->fetchAll();
             </div>
         </div>
     </main>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const likeButtons = document.querySelectorAll('.like-btn');
+    likeButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            
+            const originalUrl = this.href; 
+            const ajaxUrl = originalUrl + '&ajax=1'; 
+
+            // Εκτέλεση ασύγχρονου αιτήματος (AJAX)
+            fetch(ajaxUrl)
+                .then(response => response.json()) // Μετατροπή της απάντησης σε JSON
+                .then(data => {
+                    if (data.success) {
+                        const iconSpan = this.querySelector('span');
+                        const countB = this.querySelector('b');
+                        if (iconSpan && countB) {
+                            iconSpan.textContent = (data.action === 'liked') ? '❤️' : '🤍';
+                            countB.textContent = data.total_likes + ' likes';
+                        }
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(err => console.error('AJAX Error:', err));
+        });
+    });
+});
+</script>
 </body>
 </html>
